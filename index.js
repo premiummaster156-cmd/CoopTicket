@@ -1,9 +1,8 @@
-const { Client, GatewayIntentBits, Collection, Events, PermissionFlagsBits } = require("discord.js");
+const { Client, GatewayIntentBits, Collection, Events } = require("discord.js");
 const config = require("./config");
 const logger = require("./utils/logger");
-const { loadSlashCommands, loadPrefixCommands } = require("./loaders");
+const { loadSlashCommands } = require("./loaders");
 const { handleInteraction } = require("./handlers/interaction");
-const { handleMessage } = require("./handlers/message");
 const { handleReady } = require("./handlers/ready");
 
 const client = new Client({
@@ -11,26 +10,22 @@ const client = new Client({
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMembers,
     GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.MessageContent,
-    GatewayIntentBits.GuildMessageReactions,
   ],
 });
 
 client.slashCommands = new Collection();
-client.prefixCommands = new Collection();
-client.prefixAliases = new Collection();
-
 loadSlashCommands(client);
-loadPrefixCommands(client);
 
-client.once(Events.ClientReady, (c) => handleReady(client, c));
-client.on(Events.InteractionCreate, (i) => handleInteraction(client, i));
-client.on(Events.MessageCreate, (m) => handleMessage(client, m));
+client.once(Events.ClientReady, (readyClient) => handleReady(client, readyClient));
+client.on(Events.InteractionCreate, (interaction) => handleInteraction(client, interaction));
 
-process.on("unhandledRejection", (err) => logger.error("Unhandled rejection:", err));
-process.on("uncaughtException", (err) => logger.error("Uncaught exception:", err));
+process.on("unhandledRejection", (error) => logger.error("Unhandled promise rejection:", error));
+process.on("uncaughtException", (error) => {
+  logger.error("Uncaught exception:", error);
+  process.exitCode = 1;
+});
 
-client.login(config.token).catch((err) => {
-  logger.error("Failed to login. Check your TOKEN in .env", err);
+client.login(config.token).catch((error) => {
+  logger.error("Discord login failed. Check TOKEN in the environment.", error);
   process.exit(1);
 });
