@@ -51,11 +51,6 @@ module.exports = [
     const e = new EmbedBuilder().setTitle(interaction.options.getString("title")).setDescription(interaction.options.getString("description")).setColor(config.colors.primary);
     await interaction.reply({ embeds: [e] });
   } },
-  { category: "utility", data: new SlashCommandBuilder().setName("poll").setDescription("Create a poll.").addStringOption((o) => o.setName("question").setDescription("Question").setRequired(true)), async execute(interaction) {
-    const q = interaction.options.getString("question");
-    const msg = await interaction.reply({ embeds: [info("📊 Poll", q)], fetchReply: true });
-    await msg.react("👍"); await msg.react("👎");
-  } },
   { category: "utility", data: new SlashCommandBuilder().setName("announce").setDescription("Announce a message.").addStringOption((o) => o.setName("message").setDescription("Message").setRequired(true)).setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages), async execute(interaction) {
     await interaction.channel.send({ embeds: [warning("📢 Announcement", interaction.options.getString("message"))] });
     await interaction.reply({ content: "Announced!", ephemeral: true });
