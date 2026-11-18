@@ -93,13 +93,13 @@ module.exports = [
     await interaction.guild.members.unban(id);
     await interaction.reply({ embeds: [success("Unbanned", `Unbanned **${id}**.`)] });
   } },
-  { category: "utility", data: new SlashCommandBuilder().setName("lock").setDescription("Lock the channel.").setDefaultMemberPermissions(PermissionFlagsBits.ManageChannels), async execute(interaction) {
+  { category: "utility", data: new SlashCommandBuilder().setName("lockchannel").setDescription("Lock the channel.").setDefaultMemberPermissions(PermissionFlagsBits.ManageChannels), async execute(interaction) {
     await interaction.channel.permissionOverwrites.set([
       { id: interaction.guild.id, deny: ["SendMessages"] },
     ]);
     await interaction.reply({ embeds: [warning("Locked", "Channel locked.")] });
   } },
-  { category: "utility", data: new SlashCommandBuilder().setName("unlock").setDescription("Unlock the channel.").setDefaultMemberPermissions(PermissionFlagsBits.ManageChannels), async execute(interaction) {
+  { category: "utility", data: new SlashCommandBuilder().setName("unlockchannel").setDescription("Unlock the channel.").setDefaultMemberPermissions(PermissionFlagsBits.ManageChannels), async execute(interaction) {
     await interaction.channel.permissionOverwrites.set([
       { id: interaction.guild.id, allow: ["SendMessages"] },
     ]);
