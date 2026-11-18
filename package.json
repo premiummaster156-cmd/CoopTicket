@@ -1,17 +1,18 @@
 {
   "name": "coopticket",
-  "version": "1.0.0",
-  "description": "CoopTicket - support ticket bot",
+  "version": "2.0.0",
+  "description": "CoopTicket — a modern slash-command Discord support ticket bot.",
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
     "start": "node index.js",
-    "deploy": "node deploy-commands.js",
+    "deploy": "node deploy-commands.js --global",
     "register:guild": "node deploy-commands.js --guild",
+    "check:commands": "node deploy-commands.js --check",
     "dev": "node index.js"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=22.0.0"
   },
   "keywords": [
     "discord",
@@ -21,8 +22,8 @@
     "coopticket"
   ],
   "license": "MIT",
-"dependencies": {
-    "discord.js": "^14.15.3",
+  "dependencies": {
+    "discord.js": "^14.28.1",
     "dotenv": "^16.4.5"
   }
 }
