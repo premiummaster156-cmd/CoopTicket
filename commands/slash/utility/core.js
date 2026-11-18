@@ -14,7 +14,7 @@ module.exports = [
     await interaction.reply({ embeds: [success("Pong!", `Latency: ${Math.round(interaction.client.ws.ping)}ms`)] });
   } },
   { category: "utility", data: new SlashCommandBuilder().setName("botinfo").setDescription("Bot information."), async execute(interaction) {
-    await interaction.reply({ embeds: [info("🎫 CoopTicket", `**Servers:** ${interaction.client.guilds.cache.size}\n**Slash:** ${interaction.client.slashCommands.size}\n**Prefix:** ${interaction.client.prefixCommands.size}`)] });
+    await interaction.reply({ embeds: [info("🎫 CoopTicket", `**Servers:** ${interaction.client.guilds.cache.size}\n**Slash:** ${interaction.client.slashCommands.size}`)] });
   } },
   { category: "utility", data: new SlashCommandBuilder().setName("invite").setDescription("Get the invite link."), async execute(interaction) {
     await interaction.reply({ embeds: [success("Invite", `https://discord.com/api/oauth2/authorize?client_id=${config.clientId}&permissions=8&scope=bot%20applications.commands`)] });
